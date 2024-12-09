@@ -16,14 +16,16 @@ def convert_from_text_fol_to_subarrays(contents):
 		literals = disjunction.split(" or ")
 		for literal in literals:
 			current_literal = literal.strip('() ')
+			if "(" in current_literal:
+				current_literal += ")"
 			if current_literal[0] == "~":
 				current_literal = f"n({current_literal.strip('~')})"
 			clause_array.append(current_literal)
 		fol_array.append(clause_array)
 
 	fol = json.dumps(fol_array)
-	fol.replace("\"", "")
 	fol += "."
+	fol = fol.replace("\"", "")
 	return fol
 
 class PrologProcedureEnum(Enum):
@@ -67,7 +69,7 @@ def resolution_fol_streamlit_page():
 		run_third_example_button = st.button("Run example", key="resolution-fol-third-example", icon=":material/arrow_forward_ios:", on_click=submit_to_prolog_subprocess, args=(third_example_text, PrologProcedureEnum.RESOLUTION_FOL))
 
 	st.header("Custom Input")
-	custom_example_input = st.text_area("Custom Input", "", placeholder="For negation of a symbol please use ~.")
+	custom_example_input = st.text_area("Custom Input", "(~adult(X) or ~legoSet(Y) or playsWith(X, Y)) and (~legoSet(Y) or ~playsWith(X, Y) or ~techFanatic(X)) and (~usesSmartphone(X) or techFanatic(X)) and (~buysSmartphone(X) or cravesSmartphone(X) or usesSmartphone(X)) and buysSmartphone(paul) and legoSet(dvs) and adult(paul) and ~cravesSmartphone(paul)", placeholder="For negation of a symbol please use ~.")
 	run_custom_input_button = st.button("Run custom input", key="resolution-fol-run-custom-button", icon=":material/arrow_forward_ios:", type="primary", on_click=submit_to_prolog_subprocess, args=(custom_example_input, PrologProcedureEnum.RESOLUTION_FOL, True,))
 
 	st.header("SWI-Prolog Output")

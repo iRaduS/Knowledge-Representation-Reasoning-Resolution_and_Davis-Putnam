@@ -1,1 +1,1 @@
-[[a, b], [n(a), n(b)], [c]].
+[[n(adult(X)), n(legoSet(Y)), playsWith(X, Y)], [n(legoSet(Y)), n(playsWith(X, Y)), n(techFanatic(X))], [n(usesSmartphone(X)), techFanatic(X)], [n(buysSmartphone(X)), cravesSmartphone(X), usesSmartphone(X)], [buysSmartphone(paul)], [legoSet(dvs)], [adult(paul)], [n(cravesSmartphone(paul))]].
